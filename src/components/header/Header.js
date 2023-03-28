@@ -1,12 +1,15 @@
 import { useSelector } from "react-redux";
+import Logout from "../logout/Logout";
+import "./Header.css";
 
 const Header = () => {
   let { userObj } = useSelector((state) => state.login);
-  console.log("UserObj in header", userObj);
+
   return (
-    <div className=" bg-success">
-      <div className="justify-content-end p-2 align-content-end">
-        <p className="text-white">{userObj.email}</p>
+    <div className=" bg-dark">
+      <div className="d-flex justify-content-end align-items-center me-2">
+        <Logout />
+        <p className="text-white p-2 fs-5">{userObj.email}</p>
       </div>
     </div>
   );

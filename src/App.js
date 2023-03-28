@@ -6,6 +6,9 @@ import Login from "./components/login/Login";
 import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import RootLayout from "./components/rootLayout/RootLayout";
 import SuperAdmin from "./components/superAdmin/SuperAdmin";
+import GetUsers from "./components/superAdmin/GetUsers";
+import Admin from "./components/admin/Admin";
+import GetProjects from "./components/getProjects/GetProjects";
 
 function App() {
   // configuration of routes
@@ -29,12 +32,28 @@ function App() {
       ],
     },
     {
-      path: "/super-admin",
-      element: <SuperAdmin />,
-    },
-    {
       path: "/forgot-password",
       element: <ForgotPassword />,
+    },
+    {
+      path: "/super-admin",
+      element: <SuperAdmin />,
+      // children: [
+      //   {
+      //     path: "",
+      //     element: <GetUsers />,
+      //   },
+      // ],
+    },
+    {
+      path: "/admin",
+      element: <Admin />,
+      children: [
+        {
+          path: "",
+          element: <GetProjects />,
+        },
+      ],
     },
   ]);
 

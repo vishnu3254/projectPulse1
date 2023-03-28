@@ -28,7 +28,7 @@ const UserRegistration = () => {
     console.log(res.data);
     setRegsitered(res.data.message);
     if (res.data.message == "User Registered") {
-      navigate("/login");
+      navigate("/");
     }
   };
 

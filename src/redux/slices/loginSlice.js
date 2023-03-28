@@ -1,6 +1,7 @@
 // import create-Slice
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // createAsyncThunk
 export const userLogin = createAsyncThunk(
@@ -17,9 +18,12 @@ export const userLogin = createAsyncThunk(
       if (res.data.payload) {
         // set the token to sessionStorage
         sessionStorage.setItem("token", res.data.payload);
+
+        // set the userObj to localstorage
+        localStorage.setItem("userObj", JSON.stringify(res.data.user));
+        localStorage.setItem("status", "success");
         return res.data;
       } else {
-        
         throw new Error(res.data.message);
       }
     } catch (err) {
@@ -29,20 +33,39 @@ export const userLogin = createAsyncThunk(
   }
 );
 
+// logic for initializing the userObj with data from local storage beacuse of refreshing issue
+let user = localStorage.getItem("userObj");
+
+if (!user) {
+  user = {};
+} else {
+  user = JSON.parse(user);
+}
+
+// status from localstorage
+let status = localStorage.getItem("status");
+//if not exist in local storage set idle
+if (!status) {
+  status = "idle";
+}
+
 // create slice for user login
 const loginSlice = createSlice({
   name: "login",
   initialState: {
-    userObj: {},
+    userObj: user,
     errorMessage: "",
-    status: "idle",
+    status: status,
   },
   // reducers
   reducers: {
     clearState: (state) => {
       state.userObj = {};
       state.errorMessage = "";
-      state.status = "idle";
+      state.status = status;
+      localStorage.removeItem("userObj");
+      localStorage.removeItem("status");
+      sessionStorage.removeItem("token");
     },
   },
   // extra reducers

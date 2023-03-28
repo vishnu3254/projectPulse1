@@ -30,6 +30,8 @@ const Login = () => {
     // if user is superAdmin
     if (userObj.role === "superAdmin") {
       navigate("/super-admin");
+    } else if (userObj.role === "admin") {
+      navigate("/admin");
     }
   }, [userObj]);
 
