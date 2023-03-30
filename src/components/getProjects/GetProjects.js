@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const GetProjects = ({ url, projectCreated }) => {
+const GetProjects = ({ url, projectCreated, specificUrl }) => {
   // console.log(url);
 
   let [projects, setProjects] = useState([]);
+  console.log("url of project manager", url);
 
   const getAllProjects = async () => {
     let res = await axios.get(url, {
@@ -16,6 +18,17 @@ const GetProjects = ({ url, projectCreated }) => {
     setProjects(res.data.payload);
   };
 
+  // console.log("specific url", specificUrl);
+  // navigate
+  let navigate = useNavigate();
+
+  // navigateToDetailedView
+  const navigateToDetailedView = (projectId) => {
+    // console.log(projectId);
+    navigate(`project/${projectId}`, { state: specificUrl + `/${projectId}` });
+  };
+
+  // useEffect
   useEffect(() => {
     getAllProjects();
   }, [projectCreated]);
@@ -34,6 +47,7 @@ const GetProjects = ({ url, projectCreated }) => {
             <td>Start Date</td>
             <td>End Date</td>
             <td>Status</td>
+            <td>Detailed View</td>
           </tr>
         </thead>
         <tbody>
@@ -47,6 +61,14 @@ const GetProjects = ({ url, projectCreated }) => {
               <td>{project.startDate.split("T")[0]}</td>
               <td>{project.endDate.split("T")[0]}</td>
               <td>{project.statusOfProject}</td>
+              <td>
+                <button
+                  className="btn btn-outline-info"
+                  onClick={() => navigateToDetailedView(project.projectId)}
+                >
+                  View
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
