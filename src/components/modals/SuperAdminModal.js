@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
@@ -44,11 +43,10 @@ const SuperAdminModal = ({ show, setShow, user }) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>Edit Users</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form>
-            <h2>Edit User</h2>
             {/* userId */}
             <div className="mt-4">
               <label htmlFor="userId">UserId</label>

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 import { useForm } from "react-hook-form";
@@ -47,6 +46,10 @@ const CreateProjectModal = (props) => {
     console.log(res.data);
     if (res.data.message === "Project Created") {
       setProjectCreated(true);
+      // after some time make it false because of rendering the content only some time
+      setTimeout(() => {
+        setProjectCreated(false);
+      }, 4000);
     }
     reset();
     // hide the modal
@@ -204,8 +207,13 @@ const CreateProjectModal = (props) => {
               {...register("statusOfProject", { required: true })}
             >
               <option>Select statusOfProject</option>
+              <option>Sales</option>
+              <option>Pre-sales</option>
+              <option>Client Sign Off</option>
               <option>In Progress</option>
               <option>Completed</option>
+              <option>Paused</option>
+              <option>Deferred</option>
             </select>
             {errors.statusOfProject?.type === "required" && (
               <p className="text-danger">statusOfProject is required</p>
@@ -278,12 +286,17 @@ const CreateProjectModal = (props) => {
           {/* Type of project */}
           <div className="mt-2">
             <label htmlFor="typeOfProject">Type Of Project</label>
-            <input
-              type="text"
-              className="form-control"
-              {...register("typeOfProject", { required: true })}
-              placeholder="TypeOfProject"
-            />
+            <select className="form-control" {...register("typeOfProject")}>
+              <option>Select Type of Project</option>
+              <option>Development</option>
+              <option>Devops</option>
+              <option>Test Automation</option>
+              <option>Performance Testing</option>
+              <option>Security</option>
+              <option>Sustenance Engineering</option>
+              <option>Mobility</option>
+              <option>Storage</option>
+            </select>
             {errors.typeOfProject?.type === "required" && (
               <p className="text-danger">TypeOfProject is required</p>
             )}

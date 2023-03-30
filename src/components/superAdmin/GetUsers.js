@@ -73,6 +73,7 @@ const GetUsers = () => {
   return (
     <div>
       <h1 className="display-4 text-center">All users</h1>
+
       {/* table to display the data */}
       {deleted && (
         <p className="text-danger text-center">user deleted Successfully</p>

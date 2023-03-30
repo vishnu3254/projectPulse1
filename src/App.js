@@ -7,8 +7,16 @@ import ForgotPassword from "./components/forgotPassword/ForgotPassword";
 import RootLayout from "./components/rootLayout/RootLayout";
 import SuperAdmin from "./components/superAdmin/SuperAdmin";
 import GetUsers from "./components/superAdmin/GetUsers";
-import Admin from "./components/admin/Admin";
+import AdminRootLayout from "./components/admin/AdminRootLayout";
 import GetProjects from "./components/getProjects/GetProjects";
+import Admin from "./components/admin/Admin";
+import GdoRootLayout from "./components/gdo/GdoRootLayout";
+import Gdo from "./components/gdo/Gdo";
+import GetSpecificProjectDetails from "./components/getSpecificProjectDetails/GetSpecificProjectDetails";
+import ProjectDetailedViewAdmin from "./components/admin/ProjectDetailedViewAdmin";
+import ProjectManagerRootLayout from "./components/projectManager/ProjectManagerRootLayout";
+import ProjectManager from "./components/projectManager/ProjectManager";
+import ErrorPage from "./components/errorPage/ErrorPage";
 
 function App() {
   // configuration of routes
@@ -16,6 +24,7 @@ function App() {
     {
       path: "/",
       element: <RootLayout />,
+      errorElement: <ErrorPage />,
       children: [
         {
           path: "",
@@ -38,20 +47,46 @@ function App() {
     {
       path: "/super-admin",
       element: <SuperAdmin />,
-      // children: [
-      //   {
-      //     path: "",
-      //     element: <GetUsers />,
-      //   },
-      // ],
     },
     {
       path: "/admin",
-      element: <Admin />,
+      element: <AdminRootLayout />,
       children: [
         {
           path: "",
-          element: <GetProjects />,
+          element: <Admin />,
+        },
+        {
+          path: "project/:projectId",
+          element: <ProjectDetailedViewAdmin />,
+        },
+      ],
+    },
+    {
+      path: "/gdo",
+      element: <GdoRootLayout />,
+      children: [
+        {
+          path: "",
+          element: <Gdo />,
+        },
+        {
+          path: "project/:projectId",
+          element: <ProjectDetailedViewAdmin />,
+        },
+      ],
+    },
+    {
+      path: "/project-manager",
+      element: <ProjectManagerRootLayout />,
+      children: [
+        {
+          path: "",
+          element: <ProjectManager />,
+        },
+        {
+          path: "project/:projectId",
+          element: <ProjectDetailedViewAdmin />,
         },
       ],
     },

@@ -1,14 +1,20 @@
 import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
+import Footer from "../footer/Footer";
 import GetProjects from "../getProjects/GetProjects";
+import Header from "../header/Header";
 import CreateProject from "./CreateProject";
 
-const Admin = () => {
-  // for re-rendering of projects level up of state from createProjectModal component
-  let [projectCreated, setProjectCreated] = useState(false);
+const AdminRootLayout = () => {
 
   return (
     <div>
-      {/* create project */}
+      {/* header */}
+      <div>
+        <Header />
+      </div>
+
+      {/* create project
       <div>
         <CreateProject
           projectCreated={projectCreated}
@@ -16,21 +22,24 @@ const Admin = () => {
         />
       </div>
 
-      {projectCreated && (
-        <p className="text-success text-center display-6 fs-2">
-          Project Created Successfully
-        </p>
-      )}
       <div style={{ minHeight: "85vh" }}>
         <GetProjects
           url="http://localhost:4000/admin-api/admin/portfolioDashboard"
-          specificUrl="http://localhost:4000/admin-api/admin/portfolioDashboard/project"
           projectCreated={projectCreated}
           setProjectCreated={setProjectCreated}
         />
+      </div> */}
+
+      <div style={{ minHeight: "85vh" }}>
+        <Outlet />
+      </div>
+
+      {/* footer */}
+      <div>
+        <Footer />
       </div>
     </div>
   );
 };
 
-export default Admin;
+export default AdminRootLayout;
