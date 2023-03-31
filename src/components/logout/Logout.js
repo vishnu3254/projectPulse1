@@ -16,7 +16,7 @@ const Logout = () => {
 
   return (
     <div>
-      <p className="text-white p-2 fs-5 log" onClick={onLogout}>
+      <p className="text-white pt-2 fs-5 log" onClick={onLogout}>
         Logout
       </p>
     </div>
