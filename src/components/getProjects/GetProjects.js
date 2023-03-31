@@ -160,6 +160,7 @@ const GetProjects = ({
         </div>
       )}
 
+                  {/* modal for creating project */}
       <CreateProjectModal
         show={modalShow}
         setShow={setModalShow}

@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import GetProjects from "../getProjects/GetProjects";
 import AddProjectUpdates from "./AddProjectUpdates";
 import RaiseConcerns from "./RaiseConcerns";
 
 const ProjectManager = () => {
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    // if there is no token then redirect to login component
+    if (sessionStorage.getItem("token") === null) {
+      console.log("token not found");
+      navigate("/");
+    }
+  }, []);
   return (
     <div className="container">
       <div className="row container mt-5">
