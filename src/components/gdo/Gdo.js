@@ -8,8 +8,8 @@ const Gdo = () => {
   let [teamAssign, setTeamAssign] = useState(false);
 
   return (
-    <div className="">
-      <div className="row mt-5">
+    <div className="container">
+      <div className="row mt-5 container justify-content-center align-items-center h-auto">
         <div className="col-7 col-sm-5 col-md-4 mx-auto mt-4 h-100">
           <TeamAssign
             url="http://localhost:4000/gdo-api/gdo/portfolioDashboard"
@@ -18,7 +18,7 @@ const Gdo = () => {
           />
         </div>
 
-        <div className="col-7 col-sm-5 col-md-4 mx-auto mt-4 h-100">
+        <div className="col-7 col-sm-5 col-md-5 mx-auto mt-4 h-100">
           <RaiseResourceRequest url="http://localhost:4000/gdo-api/gdo/portfolioDashboard" />
         </div>
       </div>

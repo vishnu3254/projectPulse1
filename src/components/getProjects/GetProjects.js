@@ -17,10 +17,11 @@ const GetProjects = ({
 
   let [projects, setProjects] = useState([]);
 
-  let [existsProject, setExistsProjects] = useState(false);
-
   // selected project
   let [project, setProject] = useState({});
+
+  // loading
+  let [loading, setLoading] = useState(true);
 
   //get login user
   let { userObj } = useSelector((state) => state.login);
@@ -32,13 +33,10 @@ const GetProjects = ({
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     });
-    // console.log(res.data);
-    if (res.data.payload?.length === 0) {
-      setExistsProjects(false);
-    } else {
-      setExistsProjects(true);
-    }
     setProjects(res.data.payload);
+    // console.log("res", res.data.payload);
+    // console.log("length", res.data.payload?.length);
+    setLoading(false);
   };
 
   // for modal invoking
@@ -88,73 +86,78 @@ const GetProjects = ({
   };
   return (
     <div className="container">
-      <h2 className="display-5 text-center">All Projects</h2>
-
-      {projects?.length === 0 ? (
+      {loading === true ? (
         <div class="spinner-border text-primary d-block mx-auto" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
+      ) : projects === undefined ? (
+        <p className="text-center text-danger fs-2">
+          No Projects available for you
+        </p>
       ) : (
-        <table className="table table-responsive table-bordered table-striped text-center">
-          <thead className="bg-success text-white">
-            <tr>
-              <td>Project Name</td>
-              <td>Client</td>
-              <td>Client Account Manager</td>
-              <td>OverAllProjectFitnessIndicator</td>
-              <td>Start Date</td>
-              <td>End Date</td>
-              <td>Status</td>
-              <td>Detailed View</td>
-              {userObj.role === "admin" && <td>Edit</td>}
-              {userObj.role === "admin" && <td>Delete</td>}
-            </tr>
-          </thead>
-          <tbody>
-            {/* render all the projects */}
-            {projects?.map((project, index) => (
-              <tr key={index}>
-                <td>{project.projectName}</td>
-                <td>{project.client}</td>
-                <td>{project.clientAccountManager}</td>
-                <td>{project.overAllProjectFitnessIndicator}</td>
-                <td>{project.startDate.split("T")[0]}</td>
-                <td>{project.endDate.split("T")[0]}</td>
-                <td>{project.statusOfProject}</td>
-                <td>
-                  <button
-                    className="btn btn-outline-info"
-                    onClick={() => navigateToDetailedView(project.projectId)}
-                  >
-                    View
-                  </button>
-                </td>
-                {/* edit */}
-                {userObj.role === "admin" && (
-                  <td>
-                    <button
-                      className="btn btn-outline-warning"
-                      onClick={() => editProject(project, project.projectId)}
-                    >
-                      Edit
-                    </button>
-                  </td>
-                )}
-                {/* delete */}
-                {userObj.role === "admin" && (
-                  <td>
-                    <button
-                      className="btn btn-outline-danger"
-                      onClick={() => deleteProject(project.projectId)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                )}
+        <div>
+          <h2 className="display-5 text-center">All Projects</h2>
+          <table className="table table-responsive table-bordered table-striped text-center">
+            <thead className="bg-success text-white">
+              <tr>
+                <td>Project Name</td>
+                <td>Client</td>
+                <td>Client Account Manager</td>
+                <td>OverAllProjectFitnessIndicator</td>
+                <td>Start Date</td>
+                <td>End Date</td>
+                <td>Status</td>
+                <td>Detailed View</td>
+                {userObj.role === "admin" && <td>Edit</td>}
+                {userObj.role === "admin" && <td>Delete</td>}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {/* render all the projects */}
+              {projects?.map((project, index) => (
+                <tr key={index}>
+                  <td>{project.projectName}</td>
+                  <td>{project.client}</td>
+                  <td>{project.clientAccountManager}</td>
+                  <td>{project.overAllProjectFitnessIndicator}</td>
+                  <td>{project.startDate.split("T")[0]}</td>
+                  <td>{project.endDate.split("T")[0]}</td>
+                  <td>{project.statusOfProject}</td>
+                  <td>
+                    <button
+                      className="btn btn-outline-info"
+                      onClick={() => navigateToDetailedView(project.projectId)}
+                    >
+                      View
+                    </button>
+                  </td>
+                  {/* edit */}
+                  {userObj.role === "admin" && (
+                    <td>
+                      <button
+                        className="btn btn-outline-warning"
+                        onClick={() => editProject(project, project.projectId)}
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  )}
+                  {/* delete */}
+                  {userObj.role === "admin" && (
+                    <td>
+                      <button
+                        className="btn btn-outline-danger"
+                        onClick={() => deleteProject(project.projectId)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
 
       <CreateProjectModal
