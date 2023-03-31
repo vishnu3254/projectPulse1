@@ -6,8 +6,8 @@ const TeamAssign = ({ url, teamAssign, setTeamAssign }) => {
   const [modalShow, setModalShow] = React.useState(false);
 
   return (
-    <div>
-      <div className=" container ">
+    <div className="h-100">
+      <div className=" container  ">
         <div className="bg-success p-4  text-white  rounded">
           <h1 className="display-6 fs-1">Team Composition</h1>
           <p>Here you can Assign Employees to a project</p>
