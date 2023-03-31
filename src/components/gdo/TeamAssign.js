@@ -7,8 +7,8 @@ const TeamAssign = ({ url, teamAssign, setTeamAssign }) => {
 
   return (
     <div>
-      <div className=" row ms-3 ">
-        <div className="bg-success p-4  ms-5 ps-5 mt-4 text-white  rounded col-7 col-sm-7 ">
+      <div className=" container ">
+        <div className="bg-success p-4  text-white  rounded">
           <h1 className="display-6 fs-1">Team Composition</h1>
           <p>Here you can Assign Employees to a project</p>
           <button

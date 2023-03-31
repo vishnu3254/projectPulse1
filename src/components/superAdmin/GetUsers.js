@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import SuperAdminModal from "../modals/SuperAdminModal";
+import Toast from "react-bootstrap/Toast";
 
 const GetUsers = () => {
   // state to store the users
@@ -74,48 +75,50 @@ const GetUsers = () => {
     <div>
       <h1 className="display-4 text-center">All users</h1>
 
-      {/* table to display the data */}
-      {deleted && (
-        <p className="text-danger text-center">user deleted Successfully</p>
-      )}
-      <table className="table table-responsive table-striped table-bordered text-center container">
-        <thead className="bg-dark text-white fs-4 display-6 p-2">
-          <tr>
-            <td>UserID</td>
-            <td>Username</td>
-            <td>Email</td>
-            <td>Role</td>
-            <td>Edit</td>
-            <td>Delete</td>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={index}>
-              <td>{user.userId}</td>
-              <td>{user.username}</td>
-              <td>{user.email}</td>
-              <td>{user.role == null ? "No role Assigned" : user.role}</td>
-              <td>
-                <button
-                  className="btn btn-outline-info"
-                  onClick={() => editUser(index)}
-                >
-                  Edit
-                </button>
-              </td>
-              <td>
-                <button
-                  className="btn btn-outline-danger"
-                  onClick={() => deleteUser(user.userId)}
-                >
-                  Delete
-                </button>
-              </td>
+      {users.length === 0 ? (
+        <div class="spinner-border text-primary d-block mx-auto" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      ) : (
+        <table className="table table-responsive table-striped table-bordered text-center container">
+          <thead className="bg-dark text-white fs-4 display-6 p-2">
+            <tr>
+              <td>UserID</td>
+              <td>Username</td>
+              <td>Email</td>
+              <td>Role</td>
+              <td>Edit</td>
+              <td>Delete</td>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.map((user, index) => (
+              <tr key={index}>
+                <td>{user.userId}</td>
+                <td>{user.username}</td>
+                <td>{user.email}</td>
+                <td>{user.role == null ? "No role Assigned" : user.role}</td>
+                <td>
+                  <button
+                    className="btn btn-outline-info"
+                    onClick={() => editUser(index)}
+                  >
+                    Edit
+                  </button>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-outline-danger"
+                    onClick={() => deleteUser(user.userId)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
       {/* show modal conditionally */}
       {show == true && (

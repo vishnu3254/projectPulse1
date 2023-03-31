@@ -12,7 +12,7 @@ const CreateProjectModal = (props) => {
 
   // project Created or not status state
   // let [projectCreated, setProjectCreated] = useState(false);
-  let { setProjectCreated } = props;
+  let { setProjectCreated, project, setProjectUpdated } = props;
 
   // useForm
   let {
@@ -20,6 +20,7 @@ const CreateProjectModal = (props) => {
     formState: { errors },
     handleSubmit,
     reset,
+    setValue,
   } = useForm();
 
   // onAddProject
@@ -27,30 +28,59 @@ const CreateProjectModal = (props) => {
     // let projectObj = getValues();
 
     // here the name and id is splitted becasue only id is required for backend to process the data
-    projectObj.gdoId = projectObj.gdoId.split("-")[1];
-    projectObj.hrManager = projectObj.hrManager.split("-")[1];
-    projectObj.projectManager = projectObj.projectManager.split("-")[1];
-    console.log("project Object", projectObj);
+    // projectObj.gdoId = projectObj.gdoId.split("-")[1];
+    // projectObj.hrManager = projectObj.hrManager.split("-")[1];
+    // projectObj.projectManager = projectObj.projectManager.split("-")[1];
+    // console.log("project", projectObj);
 
     // made the request to create project
-    let res = await axios.post(
-      "http://localhost:4000/admin-api/admin/project",
-      projectObj,
-      {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-        },
-      }
-    );
+    if (project) {
+      // to update project
+      console.log("Update projects", projectObj);
+      console.log("project obj", project);
 
-    console.log(res.data);
-    if (res.data.message === "Project Created") {
-      setProjectCreated(true);
-      // after some time make it false because of rendering the content only some time
-      setTimeout(() => {
-        setProjectCreated(false);
-      }, 4000);
+      projectObj.projectId = project.projectId;
+      // make request
+      let res = await axios.put(
+        "http://localhost:4000/admin-api/admin/portfolioDashboard/project",
+        projectObj,
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      console.log(res.data);
+      if (res.data.message === "Project Updated..") {
+        setProjectUpdated(true);
+
+        setTimeout(() => {
+          setProjectUpdated(false);
+        }, 3000);
+      }
+    } else {
+      // to create project
+      let res = await axios.post(
+        "http://localhost:4000/admin-api/admin/project",
+        projectObj,
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      console.log(res.data);
+      if (res.data.message === "Project Created") {
+        setProjectCreated(true);
+        // after some time make it false because of rendering the content only some time
+        setTimeout(() => {
+          setProjectCreated(false);
+        }, 4000);
+      }
     }
+
     reset();
     // hide the modal
     props.onHide();
@@ -77,10 +107,30 @@ const CreateProjectModal = (props) => {
 
   // useEffect to get the data from api to display hr,gdo and project manager is select options
   useEffect(() => {
+    // console.log("project in craete modal", project);
+
     getGdoData();
     getProjectManagerData();
     getHrManagerDetails();
-  }, []);
+    if (project) {
+      console.log("in if", project);
+      setValue("projectName", project.projectName);
+      setValue("client", project.client);
+      setValue("gdoId", project.gdoId);
+      setValue("projectManager", project.projectManager);
+      setValue("hrManager", project.hrManager);
+      setValue("clientAccountManager", project.clientAccountManager);
+      setValue("statusOfProject", project.statusOfProject);
+      setValue("startDate", project.startDate?.split("T")[0]);
+      setValue("endDate", project.endDate?.split("T")[0]);
+      setValue(
+        "overAllProjectFitnessIndicator",
+        project.overAllProjectFitnessIndicator
+      );
+      setValue("domain", project.domain);
+      setValue("typeOfProject", project.typeOfProject);
+    }
+  }, [project]);
 
   return (
     <Modal
@@ -91,7 +141,11 @@ const CreateProjectModal = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Create project
+          {project ? (
+            <p className="text-center">Edit Project</p>
+          ) : (
+            <p>Create Project</p>
+          )}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -135,7 +189,7 @@ const CreateProjectModal = (props) => {
               <option>Select GDO</option>
               {/* iterte gdo */}
               {gdos.map((gdo, index) => (
-                <option key={index}>
+                <option key={index} value={gdo.userId}>
                   {gdo.username}-{gdo.userId}
                 </option>
               ))}
@@ -155,7 +209,7 @@ const CreateProjectModal = (props) => {
               <option>Select projectManager</option>
               {/* render project manager details as options */}
               {projectManagers.map((projectManager, index) => (
-                <option key={index}>
+                <option key={index} value={projectManager.userId}>
                   {projectManager.username}-{projectManager.userId}
                 </option>
               ))}
@@ -175,7 +229,7 @@ const CreateProjectModal = (props) => {
               <option>Select hrManager</option>
               {/* render the hr manager data as optiosn*/}
               {hrManagers.map((hrManager, index) => (
-                <option key={index}>
+                <option key={index} value={hrManager.userId}>
                   {hrManager.username}-{hrManager.userId}
                 </option>
               ))}
@@ -301,8 +355,11 @@ const CreateProjectModal = (props) => {
               <p className="text-danger">TypeOfProject is required</p>
             )}
           </div>
-
-          <button className="btn btn-success mt-2">Add Project</button>
+          {project ? (
+            <button className="btn btn-success mt-4">Edit Project</button>
+          ) : (
+            <button className="btn btn-success mt-4">Add Project</button>
+          )}
         </form>
       </Modal.Body>
       {/* <Modal.Footer>

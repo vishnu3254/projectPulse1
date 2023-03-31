@@ -70,43 +70,51 @@ const GetSpecificProjectDetails = () => {
     getResourceRequests();
   }, []);
   return (
-    <div>
-      <div className="row mx-auto mt-4 justify-content-center">
-        <div className="col-8 col-sm-6 col-md-4 mt-4">
-          <TeamSize teamSize={teamSize} />
+    <div className="container">
+      {project === "undefined" ? (
+        <div class="spinner-border text-primary d-block mx-auto" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
-        <div className="col-8 col-sm-6 col-md-4 mt-4">
-          <ConcernIndicator concernIndicator={concernIndicator} />
-        </div>
-        <div className="col-8 col-sm-6 col-md-4 mt-4">
-          <ProjectFitness projectFitness={projectFitness} />
-        </div>
-      </div>
+      ) : (
+        <div>
+          <div className="row mx-auto mt-4 justify-content-center">
+            <div className="col-8 col-sm-6 col-md-4 mt-4">
+              <TeamSize teamSize={teamSize} />
+            </div>
+            <div className="col-8 col-sm-6 col-md-4 mt-4">
+              <ConcernIndicator concernIndicator={concernIndicator} />
+            </div>
+            <div className="col-8 col-sm-6 col-md-4 mt-4">
+              <ProjectFitness projectFitness={projectFitness} />
+            </div>
+          </div>
 
-      {/* deteild project view */}
-      <div>
-        <DetailedProjectView project={project} />
-      </div>
+          {/* deteild project view */}
+          <div>
+            <DetailedProjectView project={project} />
+          </div>
 
-      {/* team details */}
-      <div>
-        <TeamDetails project={project} />
-      </div>
+          {/* team details */}
+          <div>
+            <TeamDetails project={project} />
+          </div>
 
-      {/* project Updates */}
-      <div>
-        <ProjectUpdates projectUpdates={projectUpdates} />
-      </div>
+          {/* project Updates */}
+          <div>
+            <ProjectUpdates projectUpdates={projectUpdates} />
+          </div>
 
-      {/* project concerns */}
-      <div className="mb-5 pb-5">
-        <ProjectConcerns projectConcerns={project.projectConcerns} />
-      </div>
+          {/* project concerns */}
+          <div className="mb-5 pb-5">
+            <ProjectConcerns projectConcerns={project.projectConcerns} />
+          </div>
 
-      {/* raise resource reqeusts */}
-      {userObj.role === "admin" && (
-        <div className="mb-5 pb-5">
-          <ResourceRequests resourceRequests={resourceRequests} />
+          {/* raise resource reqeusts */}
+          {userObj.role === "admin" && (
+            <div className="mb-5 pb-5">
+              <ResourceRequests resourceRequests={resourceRequests} />
+            </div>
+          )}
         </div>
       )}
     </div>

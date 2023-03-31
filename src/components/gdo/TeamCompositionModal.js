@@ -104,7 +104,7 @@ const TeamCompositionModal = (props) => {
               >
                 <option>Select Employee</option>
                 {/* render employees */}
-                {employees.map((employee, index) => (
+                {employees?.map((employee, index) => (
                   <option key={index}>
                     {employee.empName}-{employee.empId}
                   </option>
@@ -124,7 +124,7 @@ const TeamCompositionModal = (props) => {
               >
                 <option>Select Project</option>
                 {/* render all projects as options */}
-                {projects.map((project, index) => (
+                {projects?.map((project, index) => (
                   <option key={index}>
                     {project.projectName}-{project.projectId}
                   </option>
@@ -250,7 +250,7 @@ const TeamCompositionModal = (props) => {
               )}
             </div>
 
-            <button className="btn btn-success mt-2">Add Project</button>
+            <button className="btn btn-success mt-2">Assign Employee</button>
           </form>
         </Modal.Body>
         {/* <Modal.Footer>

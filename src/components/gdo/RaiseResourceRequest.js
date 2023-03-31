@@ -8,7 +8,7 @@ const RaiseResourceRequest = ({ url }) => {
   return (
     <div>
       <div className="container row ms-3 ">
-        <div className="bg-success p-4  ms-5 ps-5 mt-4 text-white  rounded col-8 col-sm-8 ">
+        <div className="bg-success p-4  text-white  rounded">
           <h1 className="display-6 fs-1">Raise resource request</h1>
           <p>Here you can Raise resource request for a project</p>
           <button
