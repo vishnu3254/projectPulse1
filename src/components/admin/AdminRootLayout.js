@@ -6,13 +6,13 @@ import Header from "../header/Header";
 import CreateProject from "./CreateProject";
 
 const AdminRootLayout = () => {
-
   return (
     <div>
       {/* header */}
       <div>
         <Header />
       </div>
+
   
       {/*Outlet */}
       <div style={{ minHeight: "85vh" }}>
