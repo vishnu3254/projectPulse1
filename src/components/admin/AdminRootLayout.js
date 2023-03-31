@@ -13,6 +13,8 @@ const AdminRootLayout = () => {
         <Header />
       </div>
 
+  
+      {/*Outlet */}
       <div style={{ minHeight: "85vh" }}>
         <Outlet />
       </div>
