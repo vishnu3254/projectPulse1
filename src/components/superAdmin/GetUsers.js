@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import SuperAdminModal from "../modals/SuperAdminModal";
+import SuperAdminModal from "../superAdmin/SuperAdminModal";
 import Toast from "react-bootstrap/Toast";
 
 const GetUsers = () => {
@@ -75,7 +75,7 @@ const GetUsers = () => {
     <div>
       <h1 className="display-4 text-center">All users</h1>
 
-      {users.length === 0 ? (
+      {users?.length === 0 ? (
         <div class="spinner-border text-primary d-block mx-auto" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
@@ -92,7 +92,7 @@ const GetUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {users?.map((user, index) => (
               <tr key={index}>
                 <td>{user.userId}</td>
                 <td>{user.username}</td>

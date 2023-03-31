@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import GetProjects from "../getProjects/GetProjects";
 import RaiseResourceRequest from "./RaiseResourceRequest";
 import TeamAssign from "./TeamAssign";
@@ -6,6 +7,16 @@ import TeamAssign from "./TeamAssign";
 const Gdo = () => {
   // state for team assign status state level up
   let [teamAssign, setTeamAssign] = useState(false);
+
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    // if there is no token then redirect to login component
+    if (sessionStorage.getItem("token") === null) {
+      console.log("token not found");
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div className="container">

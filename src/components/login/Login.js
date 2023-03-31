@@ -27,7 +27,7 @@ const Login = () => {
 
   // useEffect
   useEffect(() => {
-    // if user is superAdmin
+    // navigate to specific pages
     if (userObj.role === "superAdmin") {
       navigate("/super-admin");
     } else if (userObj.role === "admin") {
