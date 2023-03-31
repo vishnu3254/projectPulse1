@@ -6,29 +6,12 @@ import Header from "../header/Header";
 import CreateProject from "./CreateProject";
 
 const AdminRootLayout = () => {
-
   return (
     <div>
       {/* header */}
       <div>
         <Header />
       </div>
-
-      {/* create project
-      <div>
-        <CreateProject
-          projectCreated={projectCreated}
-          setProjectCreated={setProjectCreated}
-        />
-      </div>
-
-      <div style={{ minHeight: "85vh" }}>
-        <GetProjects
-          url="http://localhost:4000/admin-api/admin/portfolioDashboard"
-          projectCreated={projectCreated}
-          setProjectCreated={setProjectCreated}
-        />
-      </div> */}
 
       <div style={{ minHeight: "85vh" }}>
         <Outlet />
