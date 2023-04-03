@@ -30,10 +30,7 @@ function App() {
           path: "",
           element: <Login />,
         },
-        {
-          path: "/login",
-          element: <Login />,
-        },
+
         {
           path: "/register",
           element: <UserRegistration />,
@@ -95,7 +92,6 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={browserRoutes} />
-
     </div>
   );
 }

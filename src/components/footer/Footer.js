@@ -1,7 +1,9 @@
 const Footer = () => {
   return (
-    <div className="bg-dark">
-      <h1 className="text-white p-2 display-6">Footer</h1>
+    <div className="bg-dark p-3">
+      <span className="text-white   display-6 fs-4">
+        &copy; copyrighted to westAgileLabs
+      </span>
     </div>
   );
 };
