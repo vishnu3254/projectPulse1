@@ -4,6 +4,7 @@ import loginSlice, { userLogin } from "../../redux/slices/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
   // get the login state
@@ -36,6 +37,8 @@ const Login = () => {
       navigate("/gdo");
     } else if (userObj.role === "projectManager") {
       navigate("/project-manager");
+    } else if (userObj.role === null) {
+      toast.info("You are not assigned any role please contact super admin");
     }
   }, [userObj]);
 
@@ -50,6 +53,7 @@ const Login = () => {
 
   return (
     <div className="p-4">
+      {userObj.role === null && <ToastContainer />}
       {errorMessage && (
         <p className="text-danger text-center">{errorMessage}</p>
       )}

@@ -6,7 +6,7 @@ import Header from "../header/Header";
 import GetUsers from "./GetUsers";
 
 const SuperAdmin = () => {
-  let { userObj } = useSelector((state) => state.login);
+  // let { userObj } = useSelector((state) => state.login);
 
   let navigate = useNavigate();
 
@@ -31,7 +31,7 @@ const SuperAdmin = () => {
       </div>
 
       {/* footer */}
-      <div>
+      <div className="m-0">
         <Footer />
       </div>
     </div>

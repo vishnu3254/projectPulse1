@@ -9,7 +9,7 @@ const Admin = () => {
   let [projectDeleted, setProjectDeleted] = useState(false);
 
   return (
-    <div className="row ">
+    <div className="container">
       {/* create project */}
       <div className="col-5 col-sm-6 col-md-3 col-lg-3 ms-5 mt-4">
         <CreateProject

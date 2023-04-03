@@ -26,7 +26,15 @@ const UserRegistration = () => {
     console.log(userObj);
     let res = await axios.post("http://localhost:4000/user-api/user", userObj);
     console.log(res.data);
-    setRegsitered(res.data.message);
+    if (
+      res.data.message ===
+      "Validation error:  mail domain only westagilelabs is allowed"
+    ) {
+      console.log(res.data.message);
+      setRegsitered("Mail domain only westagilelabs is allowed");
+    } else {
+      setRegsitered(res.data.message);
+    }
     if (res.data.message == "User Registered") {
       navigate("/");
     }
@@ -83,11 +91,14 @@ const UserRegistration = () => {
           <input
             type="password"
             placeholder="password"
-            {...register("password", { required: true })}
+            {...register("password", { required: true, minLength: 5 })}
             className="form-control"
           />
           {errors.password?.type === "required" && (
             <p className="text-warning">*Password is required</p>
+          )}
+          {errors.password?.type === "minLength" && (
+            <p className="text-warning">*password min length should be 5</p>
           )}
         </div>
 
