@@ -62,6 +62,7 @@ const UserRegistration = () => {
             {...register("username", { required: true, minLength: 4 })}
             className="form-control"
           />
+          
           {errors.username?.type === "required" && (
             <p className="text-warning">*Username is required</p>
           )}

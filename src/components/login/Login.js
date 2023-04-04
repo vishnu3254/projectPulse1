@@ -29,13 +29,16 @@ const Login = () => {
   // useEffect
   useEffect(() => {
     // navigate to specific pages
-    if (userObj.role === "superAdmin") {
+    if (userObj.role === "superAdmin" && sessionStorage.getItem("token")) {
       navigate("/super-admin");
-    } else if (userObj.role === "admin") {
+    } else if (userObj.role === "admin" && sessionStorage.getItem("token")) {
       navigate("/admin");
-    } else if (userObj.role === "gdoHead") {
+    } else if (userObj.role === "gdoHead" && sessionStorage.getItem("token")) {
       navigate("/gdo");
-    } else if (userObj.role === "projectManager") {
+    } else if (
+      userObj.role === "projectManager" &&
+      sessionStorage.getItem("token")
+    ) {
       navigate("/project-manager");
     } else if (userObj.role === null) {
       toast.info("You are not assigned any role please contact super admin");
@@ -62,7 +65,7 @@ const Login = () => {
           className="p-4 bg-success rounded col-12 col-sm-12 col-md-9 col-lg-8 "
           onSubmit={handleSubmit(onSubmitForm)}
         >
-          <h2 className="text-center text-white display-4">Login</h2>
+          <h2 className="text-center text-white display-4">LOGIN</h2>
           {/* Email */}
           <div className="mt-4">
             <label htmlFor="email" className="form-label text-white">
