@@ -150,7 +150,10 @@ const CreateProjectModal = (props) => {
       </Modal.Header>
       <Modal.Body>
         {/* form to create project */}
-        <form className="w-75 mx-auto" onSubmit={handleSubmit(onAddProject)}>
+        <form
+          className="w-75 mx-auto row row-cols-2"
+          onSubmit={handleSubmit(onAddProject)}
+        >
           {/* project Name */}
           <div className="">
             <label htmlFor="projectName">Project Name</label>
@@ -293,11 +296,8 @@ const CreateProjectModal = (props) => {
             <input
               type="date"
               className="form-control"
-              {...register("endDate", { required: true })}
+              {...register("endDate")}
             />
-            {errors.endDate?.type === "required" && (
-              <p className="text-danger">endDate is required</p>
-            )}
           </div>
 
           {/* overAllProjectFitnessIndicator */}

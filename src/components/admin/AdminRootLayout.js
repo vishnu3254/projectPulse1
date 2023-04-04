@@ -11,7 +11,7 @@ const AdminRootLayout = () => {
   useEffect(() => {
     // if there is no token then redirect to login component
     if (sessionStorage.getItem("token") === null) {
-      console.log("token not found");
+      // console.log("token not found");
       navigate("/");
     }
   }, []);
